@@ -1,15 +1,12 @@
-import java.util.LinkedList;
-
-public class CreateLinkedList {
+public class ReverseLL {
     public static class Node {
         int data;
         Node next;
 
-        Node(int data) {
+        public Node(int data) {
             this.data = data;
             this.next = null;
         }
-
     }
 
     public static Node head;
@@ -52,53 +49,32 @@ public class CreateLinkedList {
         System.out.println("null");
     }
 
-    public void add(int idx, int data) {
-        if (idx == 0) {
-            addFirst(data);
-            return;
+    public void reverseLL() {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = prev;
         }
-        Node newNode = new Node(data);
-        size++;
-        Node temp = head;
-        int i = 0;
-        while (i < idx - 1) {
-            temp = temp.next;
-            i++;
-        }
-        newNode.next = temp.next;
-        temp.next = newNode;
+        head = prev;
     }
 
-    public int itrSearch(int key){
-        Node temp=head;
-        int i=0;
-        while(temp!=null){
-            if(temp.data==key){ // Key found condition
-                return i;
-            }
-            temp=temp.next;
-            i++;
-        }
-        // key not found condition 
-        return -1;
-    }
     public static void main(String[] args) {
-        CreateLinkedList ll = new CreateLinkedList();
-        ll.printNode();
+        ReverseLL ll = new ReverseLL();
         ll.addFirst(1);
-        ll.printNode();
-        ll.addFirst(2);
-        ll.printNode();
         ll.addFirst(3);
+        ll.addFirst(4);
+        ll.addFirst(6);
         ll.printNode();
-
-        ll.add(1, 9);
-        ll.printNode();
-        System.out.println(size);
-        // ll.addLast(5);
-        // ll.addLast(9);
-        // ll.addLast(6);
         // System.out.println(ll);
+        ll.printNode();
+        ll.reverseLL();
+        ll.printNode();
+        System.out.println(ll);
 
     }
+
 }
