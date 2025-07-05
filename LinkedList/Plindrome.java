@@ -1,5 +1,4 @@
-public class ReverseLL {
-    
+public class Plindrome {
     public static class Node {
         int data;
         Node next;
@@ -50,32 +49,57 @@ public class ReverseLL {
         System.out.println("null");
     }
 
-    public void reverseLL() {
+    public Node findMidNode(Node head) {
+        Node slow = head;
+        Node fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    public boolean checkPlindrome() {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        // 1. find mid
+        Node midNode = findMidNode(head);
+        // 2. reverse 2nd half
         Node prev = null;
-        Node curr = tail = head;
+        Node curr = midNode;
         Node next;
         while (curr != null) {
             next = curr.next;
             curr.next = prev;
             prev = curr;
-            curr = prev;
+            curr = next;
         }
-        head = prev;
+        Node right = prev;
+        Node left = head;
+        // 3. check right half and left half are equals
+        while (right != null) {
+            if (left.data != right.data) {
+                return false;
+            }
+            left = left.next;
+            right = right.next;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
-        ReverseLL ll = new ReverseLL();
+        Plindrome ll = new Plindrome();
         ll.addFirst(1);
-        ll.addFirst(3);
-        ll.addFirst(4);
-        ll.addFirst(6);
+        ll.addFirst(2);
+        ll.addFirst(2);
+        ll.addFirst(1);
+        ll.addLast(3);
+        ll.addLast(4);
+        ll.addLast(5);
         ll.printNode();
-        // System.out.println(ll);
-        ll.printNode();
-        ll.reverseLL();
-        ll.printNode();
-        System.out.println(ll);
 
+        System.out.println(ll.findMidNode(head).data);
+        System.out.println(ll.checkPlindrome());
     }
-
 }
