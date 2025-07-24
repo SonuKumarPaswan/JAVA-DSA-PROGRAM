@@ -7,12 +7,12 @@ public class MaxSumSubarray {
         int maxSum = Integer.MIN_VALUE;
         int currSum = 0;
         for (int i = 0; i < arr.length; i++) {
-            currSum += arr[i];
-            list.add(arr[i]);
             if (currSum < 0) {
                 list.clear();
                 currSum = 0;
             }
+            currSum += arr[i];
+            list.add(arr[i]);
             maxSum = Math.max(currSum, maxSum);
         }
         System.out.println(list);
